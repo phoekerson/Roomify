@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { categoryItems } from "../lib/categorieItems";
+import { categoryItems } from "../lib/categorytems";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
