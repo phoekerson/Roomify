@@ -1,9 +1,23 @@
+"use client"
 import { useCountries } from "@/app/lib/getCountries";
 import { SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Select } from "@/components/ui/select";
+import dynamic from "next/dynamic";
+import { Skeleton } from "@/components/ui/skeleton";
+import { CreationBottom } from "@/app/components/CreationBottomBar";
+import { useState } from "react";
+
+
 export default function AdresseRoute(){
     const {getAllCountries} = useCountries();
-     
+    const [locationValue, setLocationValue] = useState("");
+
+    const LazyMap = dynamic(()=> import('@/app/components/Map'),{
+        ssr: false,
+        loading: () => <Skeleton className="h-[50vh] w-full"/>
+
+    })
+
     return (
         <>
             <div className="w-3/5 mx-auto">
@@ -13,9 +27,9 @@ export default function AdresseRoute(){
             </div>
 
             <form>
-                <div className="w-3/5 mx-auto">
+                <div className="w-3/5 mx-auto mb-3">
                     <div className="mb-5">
-                        <Select required>
+                        <Select required onValueChange={(value) => setLocationValue(value)}>
                             <SelectTrigger className="w-full">
                                 <SelectValue placeholder="Select a Country"/>
                             </SelectTrigger>
@@ -31,8 +45,9 @@ export default function AdresseRoute(){
                             </SelectContent>
                         </Select>
                     </div>
-
-                </div>
+                    <LazyMap locationValue={locationValue}/>
+                    </div>
+                    <CreationBottom/>
             </form>
         </>
     )

@@ -1,12 +1,11 @@
-import { Item } from "@radix-ui/react-dropdown-menu"
 import countries from "world-countries"
-
+import { Item } from "@radix-ui/react-dropdown-menu";
 const countriesFormatted = countries.map((item) => ({
     value: item.cca2,
     label: item.name.common,
     flag: item.flag,
     latLang:item.latlng,
-    region: item.region
+    region: item.region, 
 }));
 
 export const useCountries = ()=> {
