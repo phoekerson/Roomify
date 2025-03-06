@@ -5,24 +5,48 @@ import { redirect } from "next/navigation"
 export async function createdRoomifyHome( {userId} : {userId:string}){
     const data = await prisma.home.findFirst({
         where: {
-            userId:userId,
+          userId: userId,
         },
-        orderBy:{
-            createdAT: "desc"
+        orderBy: {
+          createdAT: "desc",
         },
-    });
-    if(data===null){
+      });
+    
+      if (data === null) {
         const data = await prisma.home.create({
-            data: {
-                userId: userId,
-            },
+          data: {
+            userId: userId,
+          },
         });
+    
         return redirect(`/create/${data.id}/structure`);
-    }else if(!data.addedCategory && !data.addedDescription && !data.addedLocation){
+      } else if (
+        !data.addedCategory &&
+        !data.addedDescription &&
+        !data.addedLocation
+      ) {
         return redirect(`/create/${data.id}/structure`);
-    }else if(data.addedCategory && !data.addedDescription){
+      } else if (data.addedCategory && !data.addedDescription) {
         return redirect(`/create/${data.id}/description`);
-    }
+      } else if (
+        data.addedCategory &&
+        data.addedDescription &&
+        !data.addedLocation
+      ) {
+        return redirect(`/create/${data.id}/address`);
+      } else if (
+        data.addedCategory &&
+        data.addedDescription &&
+        data.addedLocation
+      ) {
+        const data = await prisma.home.create({
+          data: {
+            userId: userId,
+          },
+        });
+    
+        return redirect(`/create/${data.id}/structure`);
+      }
 }
 
 
@@ -75,4 +99,20 @@ export async function CreateDescription(formData: FormData){
     });
     return redirect(`/create/${homeId}/address`);
 
+}
+
+export async function createLocation(formData: FormData){
+    const homeId = formData.get("homeId") as string;
+    const countryValue = formData.get("countryValue") as string
+    const data = await prisma.home.update({
+        where:{
+            id: homeId,
+        },
+        data:{
+            addedLocation: true,
+            country: countryValue,
+        },
+    });
+
+    return redirect("/")
 }
