@@ -6,8 +6,14 @@ const nextConfig = {
                 hostname:"a0.muscache.com",
                 protocol: "https",
                 port:""
+            },
+            {
+                hostname:"uxkrtixbwhqoyvwnmbnj.supabase.co",
+                protocol: "https",
+                port:""
             }
         ]
+        
     }
 };
 

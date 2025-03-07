@@ -21,6 +21,7 @@
     "leaflet": "^1.9.4",
     "lucide-react": "^0.475.0",
     "next": "14.2.24",
+    "ngrok": "^5.0.0-beta.2",
     "react": "^18",
     "react-dom": "^18",
     "react-leaflet": "4.2.1",
