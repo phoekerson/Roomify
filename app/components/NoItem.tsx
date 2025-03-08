@@ -9,7 +9,7 @@ export function NoItems(){
         <h2 className="mt-6 text-xl font-semibold"
         > No listing for this category found. Sorry</h2>
         <p className="mt-2 text-center text-sm leading-6 text-muted-foreground">
-            Please check a other category or create your own listing
+            Please check an other category or create your own listing
         </p>
         </div>
     )

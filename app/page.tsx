@@ -4,11 +4,14 @@ import { Listing } from "./components/listing";
 import { Suspense } from "react";
 import { SkeletonCard } from "./components/SkeletonCard";
 import { NoItems } from "./components/NoItem";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 async function getData(
   {
     searchParams,
+    userId,
   }: {
+    userId: string | undefined
     searchParams?:{
       filter?: String;
     }
@@ -19,7 +22,7 @@ async function getData(
       addedCategory: true,
       addedLocation: true,
       addedDescription: true,
-      categoryName: searchParams?.filter ?? undefined
+      categoryName: searchParams?.filter ?? undefined,
     },
     select:{
       photo:true,
@@ -27,6 +30,11 @@ async function getData(
       price:true,
       description:true,
       country: true,
+      Favorite: {
+        where:{
+          userId: userId ?? undefined,
+        },
+      },
     },
   });
   return data;
@@ -55,7 +63,9 @@ async function ShowItem({
     filter?: string;
   };
 }) {
-  const data = await getData({ searchParams: searchParams});
+  const {getUser} = getKindeServerSession()
+  const user = await getUser();
+  const data = await getData({ searchParams: searchParams, userId: user?.id});
   return (
     <>
       {data.length === 0 ? (
@@ -63,7 +73,16 @@ async function ShowItem({
       ): (
         <div className="grid lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-8">
       {data.map((item) => (
-        <Listing key={item.id} imagePath={item.photo as string} description={item.description as string} location={item.country as string} price={item.price as number}/>
+        <Listing key={item.id}
+        imagePath={item.photo as string}
+        description={item.description as string}
+        location={item.country as string}
+        price={item.price as number}
+        userId={user?.id}
+        favoriteId={item.Favorite[0]?.id}
+        isInFavoriteList={item.Favorite.length > 0 ? true : false}
+        homeId={item.id} 
+        pathName={"/"}        />
 
       ))}
       </div>
