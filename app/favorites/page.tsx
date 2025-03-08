@@ -38,7 +38,7 @@ export default async function FavoriteRoute(){
         > Your favorites</h2>
 
         {data.length === 0 ? (
-            <NoItems/>
+            <NoItems title="You dont't have any favorites" description="Please add favorite to see them here"/>
         ) : (
             <div className="grid lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-8 mt-8">
                 {data.map((item) => (
