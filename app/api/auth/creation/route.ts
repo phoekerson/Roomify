@@ -7,7 +7,7 @@ export async function GET(){
     const user = await getUser();
 
     if(!user || user===null || !user.id){
-        throw new Error("Something went wrong, i'm sorry")
+        throw new Error("Something went wrong, i'm sorry, please try again")
     } 
     let dbUser = await prisma.user.findUnique({
         where: {
