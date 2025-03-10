@@ -1,3 +1,6 @@
+import { CategoryShowCase } from "@/app/components/CategoryShowCase";
+import { HomeMap } from "@/app/components/HomeMap";
+import { SelectCalendar } from "@/app/components/SelectCalendar";
 import prisma from "@/app/lib/db"
 import { useCountries } from "@/app/lib/getCountries";
 import { Separator } from "@/components/ui/separator";
@@ -36,7 +39,7 @@ export default async function Home({params,}:{params:{id: string}}){
     const country = getCountryByValue(data?.country as string)
 
     return (
-        <div className="w-[75%] mx-auto mt-10">
+        <div className="w-[75%] mx-auto mt-10 mb-12">
             <h1 className="font-medium text-2xl mb-5">
                 {data?.title}
             </h1>
@@ -69,7 +72,20 @@ export default async function Home({params,}:{params:{id: string}}){
                     </div>
 
                     <Separator className="my-7"/>
+
+                    <CategoryShowCase categoryName={data?.categoryName as string}/>
+                    
+                    <Separator className="my-7"/>
+
+                    <p className="text-muted-foreground">{data?.description}</p>
+
+                    <Separator className="my-7"/>
+
+                    <HomeMap locationValue={country?.value as string}/>
+
                 </div>
+
+                <SelectCalendar/>
             </div>
         
         </div>
