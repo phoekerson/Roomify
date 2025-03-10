@@ -10,7 +10,7 @@ export function SelectCalendar(){
         {
             startDate: new Date(),
             endDate: new Date(),
-            key: "Selection",
+            key: "selection",
         },
     ])
     return (
@@ -19,7 +19,7 @@ export function SelectCalendar(){
             showDateDisplay={false}
             rangeColors={["#FF5A5F"]}
             ranges={state} 
-            onChange={(item) => setState((item.selection) as any)}
+            onChange={(item) => setState([item.selection] as any)}
             minDate={new Date()}
             direction="vertical"
 
