@@ -52,7 +52,7 @@ export function Listing({description, imagePath, location, price, userId, favori
 
 
             </div>
-            <Link href={"/"} className="mt-3">
+            <Link href={`/home/${homeId}`} className="mt-3">
                 <h3>
                     {country?.flag} {country?.label} / {country?.region}
                 </h3>
