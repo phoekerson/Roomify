@@ -1,7 +1,7 @@
 import { MapFilterItems } from "./components/MapFilterItems";
 import prisma from "./lib/db";
 import { Listing } from "./components/listing";
-import { Suspense } from "react";
+import { Suspense, use } from "react";
 import { SkeletonCard } from "./components/SkeletonCard";
 import { NoItems } from "./components/NoItem";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
@@ -49,8 +49,8 @@ export default function Home( {
   return (
     <div className="container mx-auto px-5 lg:px-10">
       <MapFilterItems/>
-      <Suspense key={searchParams?.filter} fallback={<SkeletonLoading/>}>
-      <ShowItem searchParams={searchParams}/>
+      <Suspense key={searchParams?.filter} fallback={<SkeletonLoading />}>
+        <ShowItem searchParams={searchParams} />
       </Suspense>
     </div>
   );
@@ -80,7 +80,7 @@ async function ShowItem({
         price={item.price as number}
         userId={user?.id}
         favoriteId={item.Favorite[0]?.id}
-        isInFavoriteList={item.Favorite.length > 0 ? true : false}
+              isInFavoriteList={item.Favorite.length > 0 ? true : false}
         homeId={item.id} 
         pathName={"/"}        />
 
