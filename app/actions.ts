@@ -3,6 +3,7 @@ import { supabase } from "@/lib/supabase";
 import prisma from "./lib/db"
 import { redirect } from "next/navigation"
 import { revalidatePath } from "next/cache";
+import path from "path";
 export async function createdRoomifyHome( {userId} : {userId:string}){
     const data = await prisma.home.findFirst({
         where: {
@@ -147,4 +148,21 @@ export async function DeleteFromFavorite(formData: FormData){
     }
   });
   revalidatePath(pathName);
+}
+export async function createReservation(formData: FormData) {
+  const userId = formData.get("userId") as string;
+  const homeId = formData.get("homeId") as string;
+  const startDate = formData.get("startDate") as string;
+  const endDate = formData.get("endDate") as string;
+
+  const data = await prisma.reservation.create({
+    data: {
+      userId: userId,
+      endDate: endDate,
+      startDate: startDate,
+      homeId: homeId,
+    },
+  });
+
+  return redirect("/");
 }

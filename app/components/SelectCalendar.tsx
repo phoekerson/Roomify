@@ -14,6 +14,9 @@ export function SelectCalendar(){
         },
     ])
     return (
+        <>
+        <input type="hidden" name="startDate" value={state[0].startDate.toISOString()}/>
+        <input type="hidden" name="endDate" value={state[0].endDate.toISOString()}/>
         <DateRange
             date = {new Date()}
             showDateDisplay={false}
@@ -22,8 +25,7 @@ export function SelectCalendar(){
             onChange={(item) => setState([item.selection] as any)}
             minDate={new Date()}
             direction="vertical"
-
         />
-
+        </>
     )
 }
