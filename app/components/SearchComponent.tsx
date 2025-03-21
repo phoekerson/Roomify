@@ -8,6 +8,8 @@ import { useCountries } from "../lib/getCountries";
 import { HomeMap } from "./HomeMap";
 import { Button } from "@/components/ui/button";
 import { CreationSubmit } from "./SubmitButtons";
+import { Card, CardHeader } from "@/components/ui/card";
+import { Counter } from "./Counter";
 export function SearchModalComponent(){
 
     const [step, setStep] = useState(1);
@@ -36,6 +38,7 @@ export function SearchModalComponent(){
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425]">
                 <form className="gap-4 flex flex-col">
+                    <input type="hidden" name="country" value={locationValue}/>
                     {step === 1 ?(
                         <>
                         <DialogHeader>
@@ -67,6 +70,33 @@ export function SearchModalComponent(){
                             <DialogTitle>Select all the info you need</DialogTitle>
                             <DialogDescription> Please choose a Country, so that what you want </DialogDescription>
                         </DialogHeader>
+                        <Card>
+                        <CardHeader className="flex flex-col gap-y-5">
+                            <div className="flex items-center justify-between">
+                                <div className="flex flex-col">
+                                    <h3 className="underline font-medium">Guests</h3>
+                                    <p className="text-muted-foreground text-sm"> How many guests do you want ?</p>
+                                </div>
+                                <Counter name="guest"/>
+                            </div>
+
+                            <div className="flex items-center justify-between">
+                                <div className="flex flex-col">
+                                    <h3 className="underline font-medium">Rooms</h3>
+                                    <p className="text-muted-foreground text-sm"> How many Rooms do you want ?</p>
+                                </div>
+                                <Counter name="room"/>
+                            </div>
+
+                            <div className="flex items-center justify-between">
+                                <div className="flex flex-col">
+                                    <h3 className="underline font-medium">Bathroom</h3>
+                                    <p className="text-muted-foreground text-sm"> How many Bathrooms do you want ?</p>
+                                </div>
+                                <Counter name="bathroom"/>
+                            </div>
+                        </CardHeader>
+                    </Card>
 
                         </>
                     )}
