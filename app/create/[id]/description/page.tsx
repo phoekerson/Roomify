@@ -3,7 +3,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardHeader } from "@/components/ui/card";
 import { Counter } from "@/app/components/Counter";
-import { CreationSubmit } from "@/app/components/SubmitButtons";
 import { CreationBottom } from "@/app/components/CreationBottomBar";
 import { CreateDescription } from "@/app/actions";
 export default function DescriptionPage({params,
