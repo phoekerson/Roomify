@@ -1,10 +1,7 @@
-import { UserRoundIcon } from "lucide-react";
 import { Listing } from "../components/listing";
 import { NoItems } from "../components/NoItem";
 import prisma from "../lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { getSupportedArchTriples } from "next/dist/build/swc";
-import { getDefaultAutoSelectFamily } from "net";
 import { redirect } from "next/navigation";
 
 async function getData(userId: string) {
