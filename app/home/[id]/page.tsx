@@ -47,15 +47,14 @@ export default async function Home({ params }: { params: { id: string } }) {
         return <div className="w-[75%] mx-auto mt-10">Ce logement n existe pas ou a été supprimé.</div>;
     }
     
-    const country = getCountryByValue(data.country);
+    const country = data.country ? getCountryByValue(data.country) : null;
     const { getUser } = getKindeServerSession();
     const user = await getUser();
     
     return (
         <div className="w-[75%] mx-auto mt-10 mb-12">
-            <h1 className="font-medium text-2xl mb-5">
-                {data.title}
-            </h1>
+            <h1 className="font-medium text-2xl mb-5">{data.title}</h1>
+
             <div className="relative h-[550px]">
                 <Image 
                     alt="Image of the Hotel"
@@ -67,11 +66,9 @@ export default async function Home({ params }: { params: { id: string } }) {
 
             <div className="flex justify-between gap-x-24 mt-8">
                 <div className="w-2/3 font-medium">
-                    {/* Utilisation sécurisée de country avec vérification de propriétés */}
                     <h3>
-                        {country?.value && (
+                        {country && (
                             <>
-                                {/* Accéder aux propriétés de façon sécurisée */}
                                 {country.flag && <span>{country.flag} </span>}
                                 {country.region && <span>/ {country.region}</span>}
                             </>
@@ -102,7 +99,7 @@ export default async function Home({ params }: { params: { id: string } }) {
                     <Separator className="my-7"/>
 
                     <CategoryShowCase categoryName={data.categoryName}/>
-                    
+
                     <Separator className="my-7"/>
 
                     <p className="text-muted-foreground">{data.description}</p>
