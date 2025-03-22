@@ -105,8 +105,7 @@ export default async function Home({ params }: { params: { id: string } }) {
                     <p className="text-muted-foreground">{data.description}</p>
 
                     <Separator className="my-7"/>
-
-                    {/* @ts-expect-error country.value peut être null mais nous fournissons une chaîne vide comme fallback */}
+                    
                     <HomeMap locationValue={country?.value ?? ""}/>
 
                 </div>
