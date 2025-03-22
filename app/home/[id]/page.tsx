@@ -1,5 +1,4 @@
 import { CategoryShowCase } from "@/app/components/CategoryShowCase";
-import { HomeMap } from "@/app/components/HomeMap";
 import { SelectCalendar } from "@/app/components/SelectCalendar";
 import prisma from "@/app/lib/db";
 import { getCountryByValue } from "@/app/lib/getCountries";
@@ -106,8 +105,7 @@ export default async function Home({ params }: { params: { id: string } }) {
 
                     <Separator className="my-7"/>
 
-                    {/* @ts-expect-error - country.value peut être null mais nous fournissons une chaîne vide comme fallback */}
-                    <HomeMap locationValue={country?.value ?? ""}/>
+                    
 
                 </div>
 
