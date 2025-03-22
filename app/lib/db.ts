@@ -6,7 +6,7 @@ const prismaClientSingleton = () => {
 
 // Vérification et assignation sans utiliser `var`
 declare global {
-  let prisma: PrismaClient | undefined;
+  var prisma: PrismaClient | undefined;
 }
 
 const prisma: PrismaClient = globalThis.prisma ?? prismaClientSingleton();
