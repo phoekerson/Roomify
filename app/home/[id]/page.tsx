@@ -84,7 +84,8 @@ export default async function Home({params}:{params:{id: string}}){
                             className="w-11 h-11 rounded-full"
                         />
                         <div className="flex flex-col ml-4">
-                            <h3 className="font-medium">Hosted by {data.User?.firstname}</h3>
+                        <h3> Hosted by {data?.User?.firstname?.replace("'", "&apos;")} </h3>
+
                             <p className="text-sm text-muted-foreground">Host</p>
                         </div>
                     </div>
