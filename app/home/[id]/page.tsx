@@ -2,7 +2,7 @@ import { CategoryShowCase } from "@/app/components/CategoryShowCase";
 import { HomeMap } from "@/app/components/HomeMap";
 import { SelectCalendar } from "@/app/components/SelectCalendar";
 import prisma from "@/app/lib/db";
-import { getCountryByValue } from "@/app/lib/getCountries"; // Importation directe de la fonction
+import { getCountryByValue } from "@/app/lib/getCountries";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
@@ -12,7 +12,7 @@ import Link from "next/link";
 import { ReservationSubmitButton } from "@/app/components/SubmitButtons";
 import { unstable_noStore as noStore } from "next/cache";
 
-async function getData(homeId: string){
+async function getData(homeId: string) {
     noStore();
     const data = await prisma.home.findUnique({
         where: {
@@ -29,10 +29,9 @@ async function getData(homeId: string){
             price: true,
             country: true,
             User: {
-                select:{
+                select: {
                     profileImage: true,
                     firstname: true,
-                    // createdAt n'existe pas dans votre modèle User
                 }
             }
         },
@@ -41,17 +40,15 @@ async function getData(homeId: string){
     return data;
 }
 
-export default async function Home({params}:{params:{id: string}}){
+export default async function Home({ params }: { params: { id: string } }) {
     const data = await getData(params.id);
     
     if (!data) {
-        // Gestion du cas où le logement n'est pas trouvé
         return <div className="w-[75%] mx-auto mt-10">Ce logement n existe pas ou a été supprimé.</div>;
     }
     
-    // Utiliser la fonction directement, pas le hook
     const country = getCountryByValue(data.country);
-    const {getUser} = getKindeServerSession();
+    const { getUser } = getKindeServerSession();
     const user = await getUser();
     
     return (
@@ -60,17 +57,26 @@ export default async function Home({params}:{params:{id: string}}){
                 {data.title}
             </h1>
             <div className="relative h-[550px]">
-            <Image 
-                alt="Image of the Hotel"
-                src={`https://uxkrtixbwhqoyvwnmbnj.supabase.co/storage/v1/object/public/image/${data.photo}`}
-                fill
-                className="rounded-lg object-cover w-full"
-            />
+                <Image 
+                    alt="Image of the Hotel"
+                    src={`https://uxkrtixbwhqoyvwnmbnj.supabase.co/storage/v1/object/public/image/${data.photo}`}
+                    fill
+                    className="rounded-lg object-cover w-full"
+                />
             </div>
 
             <div className="flex justify-between gap-x-24 mt-8">
                 <div className="w-2/3 font-medium">
-                    <h3>{country?.flag} {country?.label} / {country?.region}</h3>
+                    {/* Utilisation sécurisée de country avec vérification de propriétés */}
+                    <h3>
+                        {country?.value && (
+                            <>
+                                {/* Accéder aux propriétés de façon sécurisée */}
+                                {country.flag && <span>{country.flag} </span>}
+                                {country.region && <span>/ {country.region}</span>}
+                            </>
+                        )}
+                    </h3>
                     <div className="flex gap-x-2 text-muted-foreground">
                         <p>{data.guests} Guests</p> * <p>{data.bedrooms} Bedrooms</p> * {data.bathrooms} Bathrooms
                     </div>
@@ -84,8 +90,11 @@ export default async function Home({params}:{params:{id: string}}){
                             className="w-11 h-11 rounded-full"
                         />
                         <div className="flex flex-col ml-4">
-                        <h3> Hosted by {data?.User?.firstname?.replace("'", "&apos;")} </h3>
-
+                            <h3 className="font-medium">
+                                {data.User?.firstname && (
+                                    <>Hosted by {data.User.firstname.replace(/'/g, "&apos;")}</>
+                                )}
+                            </h3>
                             <p className="text-sm text-muted-foreground">Host</p>
                         </div>
                     </div>
@@ -101,7 +110,6 @@ export default async function Home({params}:{params:{id: string}}){
                     <Separator className="my-7"/>
 
                     <HomeMap locationValue={country?.value ?? ""}/>
-
                 </div>
 
                 <form action={createReservation}>
