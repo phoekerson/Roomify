@@ -106,8 +106,9 @@ export default async function Home({ params }: { params: { id: string } }) {
 
                     <Separator className="my-7"/>
 
-                    {/* @ts-expect-error */}
+                    {/* @ts-expect-error - country.value peut être null mais nous fournissons une chaîne vide comme fallback */}
                     <HomeMap locationValue={country?.value ?? ""}/>
+
                 </div>
 
                 <form action={createReservation}>
