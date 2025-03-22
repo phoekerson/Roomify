@@ -50,7 +50,6 @@ export default async function Home({ params }: { params: { id: string } }) {
     const country = data.country ? getCountryByValue(data.country) : null;
     const { getUser } = getKindeServerSession();
     const user = await getUser();
-    const safeLocationValue: string = (country?.value || "").toString();
     
     return (
         <div className="w-[75%] mx-auto mt-10 mb-12">
@@ -107,7 +106,7 @@ export default async function Home({ params }: { params: { id: string } }) {
 
                     <Separator className="my-7"/>
 
-                    {/* @ts-ignore */}
+                    {/* @ts-expect-error */}
                     <HomeMap locationValue={country?.value ?? ""}/>
                 </div>
 
