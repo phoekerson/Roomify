@@ -89,7 +89,7 @@ export default async function Home({ params }: { params: { id: string } }) {
                         <div className="flex flex-col ml-4">
                             <h3 className="font-medium">
                                 {data.User?.firstname && (
-                                    <>Hosted by {data.User!.firstname!.replace(/'/g, "&apos;")}</>
+                                    <>Hosted by {data.User?.firstname ?? "Hebergeur inconnu"}</>
                                 )}
                             </h3>
                             <p className="text-sm text-muted-foreground">Host</p>
