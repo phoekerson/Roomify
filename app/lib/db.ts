@@ -4,9 +4,9 @@ const prismaClientSingleton = () => {
   return new PrismaClient();
 };
 
-// Vérification et assignation sans utiliser `var`
+// Correction de la déclaration globale
 declare global {
-  const prisma: PrismaClient | undefined;
+  var prisma: PrismaClient | undefined;
 }
 
 const prisma: PrismaClient = globalThis.prisma ?? prismaClientSingleton();
