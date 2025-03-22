@@ -19,4 +19,10 @@ export const useCountries = ()=> {
         getAllCountries,
         getCountryByValue
         }
+
 }
+// Dans lib/getCountries.ts
+export function getCountryByValue(value: string) {
+    return countries.find((country) => country.value === value);
+  }
+  
