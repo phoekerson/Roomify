@@ -6,6 +6,7 @@ const prismaClientSingleton = () => {
 
 // Correction de la déclaration globale
 declare global {
+  // eslint-disable-next-line no-var
   var prisma: PrismaClient | undefined;
 }
 
