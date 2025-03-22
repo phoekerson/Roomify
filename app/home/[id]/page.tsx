@@ -107,7 +107,8 @@ export default async function Home({ params }: { params: { id: string } }) {
 
                     <Separator className="my-7"/>
 
-                    <HomeMap locationValue={safeLocationValue} />
+                    {/* @ts-ignore */}
+                    <HomeMap locationValue={country?.value ?? ""}/>
                 </div>
 
                 <form action={createReservation}>
