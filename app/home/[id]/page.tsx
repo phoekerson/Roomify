@@ -50,6 +50,7 @@ export default async function Home({ params }: { params: { id: string } }) {
     const country = data.country ? getCountryByValue(data.country) : null;
     const { getUser } = getKindeServerSession();
     const user = await getUser();
+    const safeLocationValue: string = (country?.value || "").toString();
     
     return (
         <div className="w-[75%] mx-auto mt-10 mb-12">
@@ -106,7 +107,7 @@ export default async function Home({ params }: { params: { id: string } }) {
 
                     <Separator className="my-7"/>
 
-                    <HomeMap locationValue={country?.value || ""}/>
+                    <HomeMap locationValue={safeLocationValue} />
                 </div>
 
                 <form action={createReservation}>
