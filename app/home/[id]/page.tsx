@@ -46,7 +46,7 @@ export default async function Home({params}:{params:{id: string}}){
     
     if (!data) {
         // Gestion du cas où le logement n'est pas trouvé
-        return <div className="w-[75%] mx-auto mt-10">Ce logement n'existe pas ou a été supprimé.</div>;
+        return <div className="w-[75%] mx-auto mt-10">Ce logement n existe pas ou a été supprimé.</div>;
     }
     
     // Utiliser la fonction directement, pas le hook
