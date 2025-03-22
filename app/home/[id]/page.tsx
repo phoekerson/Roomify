@@ -38,10 +38,9 @@ async function getData(homeId: string){
 
     return data;
 }
-
+const {getCountryByValue} = useCountries();
 export default async function Home({params,}:{params:{id: string}}){
     const data = await getData(params.id);
-    const {getCountryByValue} = useCountries();
     const country = getCountryByValue(data?.country as string)
     const {getUser} = getKindeServerSession()
     const user = await getUser();
