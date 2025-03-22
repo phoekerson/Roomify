@@ -106,7 +106,7 @@ export default async function Home({ params }: { params: { id: string } }) {
 
                     <Separator className="my-7"/>
 
-                    <HomeMap locationValue={country?.value ?? ""}/>
+                    <HomeMap locationValue={country && country.value ? country.value : ""}/>
                 </div>
 
                 <form action={createReservation}>
